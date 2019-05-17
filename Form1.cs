@@ -34,7 +34,7 @@ namespace FTP
             stream.Close();
 
             //Upload file
-            Stream streamQuery = prueba.GetRequestStream();
+            Stream streamQuery = prueba.GetRequestStream();//En esta parte al momento de subir me marca Error en el servidor remoto: (553) No se permite el nombre de archivo
             streamQuery.Write(buffer, 0, buffer.Length);
             streamQuery.Close();
 
