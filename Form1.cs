@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,18 +27,18 @@ namespace FTP
             prueba.UseBinary = true;
             prueba.KeepAlive = false;
 
-            //Load the file
+           
             FileStream stream = File.OpenRead(filePath);
             byte[] buffer = new byte[stream.Length];
             stream.Read(buffer, 0, buffer.Length);
             stream.Close();
 
-            //Upload file
-            Stream streamQuery = prueba.GetRequestStream();//En esta parte al momento de subir me marca Error en el servidor remoto: (553) No se permite el nombre de archivo
+          
+            Stream streamQuery = prueba.GetRequestStream();
             streamQuery.Write(buffer, 0, buffer.Length);
             streamQuery.Close();
 
-            MessageBox.Show("Uploaded Successfully"); 
+            MessageBox.Show("Archivo subido exitosamente"); 
            }
             private void subir_Click(object sender, EventArgs e)
         {
