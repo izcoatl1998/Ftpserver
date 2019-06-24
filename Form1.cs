@@ -18,41 +18,32 @@ namespace FTP
         {
             InitializeComponent();
         }
-        private void uploadFile(string FTPAddress, string filePath, string username, string password)
+            private void subir_Click(object sender, EventArgs e)
         {
-            FtpWebRequest prueba = (FtpWebRequest)FtpWebRequest.Create(FTPAddress + "/" + Path.GetFileName(filePath));
+           
+            FtpWebRequest prueba = (FtpWebRequest)FtpWebRequest.Create("ftp://files.000webhost.com/public_html/" + " / " + Path.GetFileName(@"C:\Users\rivas\Documents\a20136710.txt"));
             prueba.Method = WebRequestMethods.Ftp.UploadFile;
-            prueba.Credentials = new NetworkCredential(username, password);
+            prueba.Credentials = new NetworkCredential("test1pweb", "computadora321");
             prueba.UsePassive = true;
             prueba.UseBinary = true;
             prueba.KeepAlive = false;
 
-           
-            FileStream stream = File.OpenRead(filePath);
+
+            FileStream stream = File.OpenRead(@"C:\Users\rivas\Documents\a20136710.txt");
             byte[] buffer = new byte[stream.Length];
+
             stream.Read(buffer, 0, buffer.Length);
             stream.Close();
-
-          
-            Stream streamQuery = prueba.GetRequestStream();
-            streamQuery.Write(buffer, 0, buffer.Length);
-            streamQuery.Close();
-
-            MessageBox.Show("Archivo subido exitosamente"); 
-           }
-            private void subir_Click(object sender, EventArgs e)
-        {
-            subir.Enabled = false;
-            Application.DoEvents();
-
-            uploadFile(servidor.Text, archivo.Text, usuario.Text, contraseña.Text);
-            subir.Enabled = true;
+            Stream reqStream = prueba.GetRequestStream();
+            reqStream.Write(buffer, 0, buffer.Length);
+            reqStream.Close();
+            MessageBox.Show("Archivo subido exitosamente");
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-                archivo.Text = openFileDialog1.FileName;
+           /* if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                archivo.Text = openFileDialog1.FileName;*/
         }
     }
 }
